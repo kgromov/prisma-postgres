@@ -44,3 +44,5 @@ Thumbs.db
 /server/logs/
 **/.env
 .vercel
+
+/generated/prisma
