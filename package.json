@@ -1,5 +1,5 @@
 {
-  "name": "prisma-postgres",
+  "name": "prisma-orm",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
