@@ -2,6 +2,8 @@ import { prisma } from './prisma/client'
 
 async function main() {
    // TODO: write custom queries
+    const count: number = await prisma.dailyTemperature.count();
+    console.log(`All measured days = ${count}`);
 }
 
 main()

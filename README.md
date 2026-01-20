@@ -102,6 +102,66 @@ npx prisma migrate diff --from-empty \
 npx prisma migrate dev --name ${migration_name}
 ```
 
+## Configure logging
+The simplest way to print all log levels to stdout is to pass in an array LogLevel objects:
+```
+const prisma = new PrismaClient({
+  log: ['query', 'info', 'warn', 'error'],
+})
+```
+This is the short form of passing in an array of LogDefinition objects where the value of emit is always stdout:
+```
+const prisma = new PrismaClient({
+  log: [
+    {
+      emit: 'stdout',
+      level: 'query',
+    },
+    {
+      emit: 'stdout',
+      level: 'error',
+    },
+    {
+      emit: 'stdout',
+      level: 'info',
+    },
+    {
+      emit: 'stdout',
+      level: 'warn',
+    },
+  ],
+})
+```
+And afterwards it's needed to subscribe for desired event or  log level to redirect to target appender (e.g. ``console.log``):
+```
+prisma.$on('query', (e) => {
+  console.log('Query: ' + e.query)
+  console.log('Params: ' + e.params)
+  console.log('Duration: ' + e.duration + 'ms')
+})
+```
+or
+```
+prisma.$on('warn', (e) => {
+    console.log(e);
+});
+```
+It is also possible to activate debug or trace.   
+E.g. for debug it's required to setup env variables:
+```
+# enable only `prisma:engine`-level debugging output
+export DEBUG="prisma:engine"
+
+# enable only `prisma:client`-level debugging output
+export DEBUG="prisma:client"
+
+# enable both `prisma-client`- and `engine`-level debugging output
+export DEBUG="prisma:client,prisma:engine"
+
+# enable all prisma
+export DEBUG="prisma*"
+```
+***NOTE:** for Windows use `set` instead of `export`
 
 ## Simple queries
 Read query is similar to mongo:  
