@@ -166,6 +166,10 @@ export DEBUG="prisma*"
 ## Simple queries
 Read query is similar to mongo:  
 ```typescript
+    // return default fields - no relations
+    const allUsers = await prisma.user.findFirst()
+```
+```typescript
  // Fetch all users with their posts
   const allUsers = await prisma.user.findMany({
     include: {
@@ -173,6 +177,18 @@ Read query is similar to mongo:
     },
   })
 ```
+```typescript
+    // specific projection (aka GraphQL)
+    const usersWithPostTitles = await prisma.user.findFirst({
+        select: {
+            name: true,
+            posts: {
+                select: { title: true },
+            },
+        },
+    })
+```
+More details can be found in [docs](https://www.prisma.io/docs/orm/prisma-client/queries)
 
 ## Visualization
 Prisma comes with simple db client - Prisma Studio that allows to view data, explore table schema and relations graph.  
