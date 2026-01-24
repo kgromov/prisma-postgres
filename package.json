@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "init": "npx prisma init --datasource-provider mysql --output ../generated/prisma",
-    "introspect": "npx prisma db pull",
-    "run": "npx tsx plain-select.ts"
+    "init": "tsx prisma init --datasource-provider mysql --output ../generated/prisma",
+    "introspect": "tsx prisma db pull",
+    "select-queries": "tsx plain-select.ts",
+    "aggregation-queries": "tsx aggregation.ts"
   },
   "keywords": [],
   "author": "",
