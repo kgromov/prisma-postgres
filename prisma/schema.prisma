@@ -107,7 +107,7 @@ model BATCH_STEP_EXECUTION_SEQ {
 model DailyTemperature {
   id                   BigInt    @id @default(autoincrement())
   afternoonTemperature Float?
-  date                 DateTime? @db.Date
+  date                 DateTime? @db.Date @unique
   eveningTemperature   Float?
   morningTemperature   Float?
   nightTemperature     Float?
@@ -116,7 +116,7 @@ model DailyTemperature {
 model DayTemperature {
   id                   BigInt    @id @default(autoincrement())
   afternoonTemperature Float?
-  date                 DateTime? @db.Date
+  date                 DateTime? @db.Date @unique
   eveningTemperature   Float?
   morningTemperature   Float?
   nightTemperature     Float?

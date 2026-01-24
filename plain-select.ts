@@ -1,5 +1,5 @@
 import {prisma} from './prisma/client'
-import {FloatNullableFilter, SortOrder} from "./generated/prisma/internal/prismaNamespace";
+import {SortOrder} from "./generated/prisma/internal/prismaNamespace";
 
 async function main() {
     const count: number = await prisma.dailyTemperature.count();

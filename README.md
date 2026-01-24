@@ -188,7 +188,38 @@ Read query is similar to mongo:
         },
     })
 ```
-More details can be found in [docs](https://www.prisma.io/docs/orm/prisma-client/queries)
+More details can be found in [docs](https://www.prisma.io/docs/orm/prisma-client/queries)    
+There is a separate docs for [raw queries](https://www.prisma.io/docs/orm/prisma-client/using-raw-sql/raw-queries) 
+
+## Connection pooling and db tunning
+Starting from version `7` connection pool settings are automatically applied from corresponding node driver (adapter).  
+E.g. for both Postgress and MariaDB default connection pool size is *10*
+But it's still possible to configure explicitly. E.g. 
+```typescript
+import { PrismaPg } from '@prisma/adapter-pg'
+
+const adapter = new PrismaPg({
+  connectionString: process.env.DATABASE_URL,
+  // Match Prisma ORM v6 defaults:
+  connectionTimeoutMillis: 5_000, // v6 connect_timeout was 5s
+  idleTimeoutMillis: 300_000,     // v6 max_idle_connection_lifetime was 300s
+})
+```
+or 
+```typescript
+import { PrismaMariaDb } from '@prisma/adapter-mariadb'
+
+const adapter = new PrismaMariaDb({
+    host: 'localhost',
+    port: 3306,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    // Match Prisma ORM v6 defaults:
+    connectTimeout: 5_000, // v6 connect_timeout was 5s
+    idleTimeout: 300,      // v6 max_idle_connection_lifetime was 300s (note: in seconds, not ms)
+})
+```
 
 ## Visualization
 Prisma comes with simple db client - Prisma Studio that allows to view data, explore table schema and relations graph.  

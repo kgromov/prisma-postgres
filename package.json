@@ -6,7 +6,7 @@
   "scripts": {
     "init": "npx prisma init --datasource-provider mysql --output ../generated/prisma",
     "introspect": "npx prisma db pull",
-    "run": "npx tsx script.ts"
+    "run": "npx tsx plain-select.ts"
   },
   "keywords": [],
   "author": "",
