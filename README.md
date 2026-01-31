@@ -177,6 +177,13 @@ Read query is similar to mongo:
     },
   })
 ```
+**NOTE:** to avoid N+1 common error, it's recommended to use `join` strategy (aka `JOIN FETCH` in Hibernate):
+```typescript
+    await prisma.user.findMany({
+        relationLoadStrategy: "join",
+        // condotions/projects
+    });
+```
 ```typescript
     // specific projection (aka GraphQL)
     const usersWithPostTitles = await prisma.user.findFirst({
